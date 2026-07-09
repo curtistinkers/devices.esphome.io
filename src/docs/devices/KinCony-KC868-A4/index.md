@@ -12,29 +12,29 @@ board: esp32
 
 | Pin    | Function           |
 | ------ | ------------------ |
-| GPIO2  | Relay1             |
-| GPIO15 | Relay2             |
-| GPIO5  | Relay3             |
-| GPIO4  | Relay4             |
-| GPIO2  | digital input1     |
-| GPIO15 | digital input2     |
-| GPIO5  | digital input3     |
-| GPIO4  | digital input4     |
-| GPIO32 | analog input1      |
-| GPIO33 | analog input2      |
-| GPIO34 | analog input3      |
-| GPIO35 | analog input4      |
-| GPIO25 | analog output1     |
-| GPIO26 | analog output2     |
+| GPIO2  | Relay 1            |
+| GPIO15 | Relay 2            |
+| GPIO5  | Relay 3            |
+| GPIO4  | Relay 4            |
+| GPIO36 | Digital input 1    |
+| GPIO39 | Digital input 2    |
+| GPIO27 | Digital input 3    |
+| GPIO14 | Digital input 4    |
+| GPIO32 | Analog input 1     |
+| GPIO33 | Analog input 2     |
+| GPIO34 | Analog input 3     |
+| GPIO35 | Analog input 4     |
+| GPIO25 | Analog output 1    |
+| GPIO26 | Analog output 2    |
 | GPIO13 | 1-Wire GPIO        |
-| GPIO18 | beep               |
+| GPIO18 | Piezo buzzer       |
 | GPIO16 | RS232_RXD          |
 | GPIO17 | RS232_TXD          |
-| GPIO21 | 433MHz Transmitter |
-| GPIO19 | 433MHz Receiver    |
-| GPIO23 | IR Receiver        |
-| GPIO22 | IR Transmitter     |
-| GPIO0  | PCB Button         |
+| GPIO21 | 433MHz transmitter |
+| GPIO19 | 433MHz receiver    |
+| GPIO22 | IR transmitter     |
+| GPIO23 | IR receiver        |
+| GPIO0  | PCB button S1      |
 
 [Additional pinout/design details](https://www.kincony.com/arduino-esp32-4-channel-relay-module.html)
 
@@ -70,47 +70,79 @@ captive_portal:
 
 switch:
   - platform: gpio
-    name: "light1"
-    pin: 2
+    name: "Relay 1"
+    id: relay_1
+    pin: GPIO2
     inverted: false
 
   - platform: gpio
-    name: "light2"
-    pin: 15
+    name: "Relay 2"
+    id: relay_2
+    pin: GPIO15
     inverted: false
 
   - platform: gpio
-    name: "light3"
-    pin: 5
+    name: "Relay 3"
+    id: relay_3
+    pin: GPIO5
     inverted: false
 
   - platform: gpio
-    name: "light4"
-    pin: 4
+    name: "Relay 4"
+    id: relay_4
+    pin: GPIO4
     inverted: false
 
 binary_sensor:
   - platform: gpio
-    name: "input1"
+    name: "Digital Input 1"
+    id: digital_input_1
     pin:
-      number: 36
+      number: GPIO36
       inverted: true
 
   - platform: gpio
-    name: "input2"
+    name: "Digital Input 2"
+    id: digital_input_2
     pin:
-      number: 39
+      number: GPIO39
       inverted: true
 
   - platform: gpio
-    name: "input3"
+    name: "Digital Input 3"
+    id: digital_input_3
     pin:
-      number: 27
+      number: GPIO27
       inverted: true
 
   - platform: gpio
-    name: "input4"
+    name: "Digital Input 4"
+    id: digital_input_4
     pin:
-      number: 14
+      number: GPIO14
       inverted: true
+
+output:
+  - platform: esp32_dac
+    pin: GPIO25
+    id: analog_output_1
+    
+  - platform: esp32_dac
+    pin: GPIO26
+    id: analog_output_2
+    
+  - platform: ledc
+    pin: GPIO18
+    id: beep_1
+
+rtttl:
+  output: beep_1
+  id: piezo_buzzer
+
+script:
+  - id: play_siren
+    mode: queued
+    then:
+      - rtttl.play: Siren:d=8,o=5,b=100:d,e,d,e,d,e,d,e
+
 ```
