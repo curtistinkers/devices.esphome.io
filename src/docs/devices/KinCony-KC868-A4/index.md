@@ -68,49 +68,122 @@ wifi:
 
 captive_portal:
 
+uart:
+  - id: rs232
+    baud_rate: 115200
+    rx_pin: GPIO16
+    tx_pin: GPIO17
+
 switch:
   - platform: gpio
-    name: "light1"
-    pin: 2
-    inverted: false
+    name: "Relay 1"
+    id: relay_1
+    pin: GPIO2
 
   - platform: gpio
-    name: "light2"
-    pin: 15
-    inverted: false
+    name: "Relay 2"
+    id: relay_2
+    pin: GPIO15
 
   - platform: gpio
-    name: "light3"
-    pin: 5
-    inverted: false
+    name: "Relay 3"
+    id: relay_3
+    pin: GPIO5
 
   - platform: gpio
-    name: "light4"
-    pin: 4
-    inverted: false
+    name: "Relay 4"
+    id: relay_4
+    pin: GPIO4
 
 binary_sensor:
   - platform: gpio
-    name: "input1"
+    name: "Digital input 1"
+    id: digital_input_1
     pin:
-      number: 36
+      number: GPIO36
       inverted: true
 
   - platform: gpio
-    name: "input2"
+    name: "Digital input 2"
+    id: digital_input_2
     pin:
-      number: 39
+      number: GPIO39
       inverted: true
 
   - platform: gpio
-    name: "input3"
+    name: "Digital input 3"
+    id: digital_input_3
     pin:
-      number: 27
+      number: GPIO27
       inverted: true
 
   - platform: gpio
-    name: "input4"
+    name: "Digital input 4"
+    id: digital_input_4
     pin:
-      number: 14
+      number: GPIO14
       inverted: true
+
+sensor:
+  - platform: dht
+    id: sensor_dht
+    pin: GPIO13
+    temperature:
+      name: Temperature
+      id: dht_temperature
+      icon: "mdi:thermometer"
+    humidity:
+      name: Humidity
+      id: dht_humidity
+      icon: "mdi:water-percent"
+
+  - platform: adc
+    name: "Analog input 1"
+    id: analog_input_1
+    pin: GPIO32
+    
+  - platform: adc
+    name: "Analog input 2"
+    id: analog_input_2
+    pin: GPIO33
+    
+  - platform: adc
+    name: "Analog input 3"
+    id: analog_input_3
+    pin: GPIO34
+
+  - platform: adc
+    name: "Analog input 4"
+    id: analog_input_4
+    pin: GPIO35
+
+output:
+  - platform: esp32_dac
+    id: analog_output_1
+    pin: GPIO25
+    
+  - platform: esp32_dac
+    id: analog_output_2
+    pin: GPIO26
+    
+  - platform: ledc
+    id: beep_1
+    pin: GPIO18
+
+rtttl:
+  output: beep_1
+  id: buzzer
+
+script:
+  - id: play_siren
+    then:
+      - rtttl.play: Siren:d=8,o=5,b=100:d,e,d,e,d,e,d,e
+
+button:
+  - platform: template
+    name: "Test Buzzer"
+    icon: "mdi:volume-high"
+    entity_category: diagnostic
+    on_press:
+      - script.execute: play_siren
 ```
