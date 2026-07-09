@@ -10,31 +10,31 @@ board: esp32
 
 ## GPIO Pinout
 
-| Pin    | Function           |
-| ------ | ------------------ |
-| GPIO2  | Relay1             |
-| GPIO15 | Relay2             |
-| GPIO5  | Relay3             |
-| GPIO4  | Relay4             |
-| GPIO2  | digital input1     |
-| GPIO15 | digital input2     |
-| GPIO5  | digital input3     |
-| GPIO4  | digital input4     |
-| GPIO32 | analog input1      |
-| GPIO33 | analog input2      |
-| GPIO34 | analog input3      |
-| GPIO35 | analog input4      |
-| GPIO25 | analog output1     |
-| GPIO26 | analog output2     |
-| GPIO13 | 1-Wire GPIO        |
-| GPIO18 | beep               |
-| GPIO16 | RS232_RXD          |
-| GPIO17 | RS232_TXD          |
-| GPIO21 | 433MHz Transmitter |
-| GPIO19 | 433MHz Receiver    |
-| GPIO23 | IR Receiver        |
-| GPIO22 | IR Transmitter     |
-| GPIO0  | PCB Button         |
+| Pin    | Function            |
+| ------ | ------------------- |
+| GPIO2  | Relay 1             |
+| GPIO15 | Relay 2             |
+| GPIO5  | Relay 3             |
+| GPIO4  | Relay 4             |
+| GPIO36 | Digital input 1     |
+| GPIO39 | Digital input 2     |
+| GPIO27 | Digital input 3     |
+| GPIO14 | Digital input 4     |
+| GPIO32 | Analog input 1      |
+| GPIO33 | Analog input 2      |
+| GPIO34 | Analog input 3      |
+| GPIO35 | Analog input 4      |
+| GPIO25 | Analog output 1     |
+| GPIO26 | Analog output 2     |
+| GPIO13 | 1-Wire GPIO         |
+| GPIO18 | Piezo buzzer        |
+| GPIO16 | RS232 RXD           |
+| GPIO17 | RS232 TXD           |
+| GPIO21 | 433 MHz transmitter |
+| GPIO19 | 433 MHz receiver    |
+| GPIO23 | IR receiver         |
+| GPIO22 | IR transmitter      |
+| GPIO0  | PCB button S1       |
 
 [Additional pinout/design details](https://www.kincony.com/arduino-esp32-4-channel-relay-module.html)
 
